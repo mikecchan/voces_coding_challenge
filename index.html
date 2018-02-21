@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--
+Ok, quick test for you. Put together a ultra basic quiz program in javascript. 3 questions, load a question in, check the answer, go to the next question. After 3 question, give the user their score. I'll just be looking at the raw code and functionality, so don't worry about making it look pretty. I look forward to seeing what you come up with.
+-->
+
+  <body>
+    <p id="question"></p>
+    </br>
+      Your Answer:
+      <input id = "input" type="text" name="youranswer">
+      <input type="submit" value="Submit" onclick="quiz()">
+    </br>
+    <p id="result"></p>
+
+  <script>
+
+    var num1;
+    var num2;
+    var total;
+    var response;
+    var correct = 0;
+    var wrong = 0;
+    var iter = 0;
+    var textNode;
+    var target = document.getElementById("question");
+    var cont = true;
+
+    window.onload = displayQuestion();
+
+    function assignNumbers(){
+      num1 = Math.floor(Math.random() * 100);
+      num2 = Math.floor(Math.random() * 100);
+      total = num1 + num2;
+    }
+
+    function displayQuestion(){
+      var node = document.getElementById("question");
+      if (node.hasChildNodes()){
+        node.removeChild(textNode);
+      }
+      assignNumbers();
+      textNode = document.createTextNode("What is " + num1 + " + " + num2 + "?");
+      node.appendChild(textNode);
+    }
+
+    function displayResult(){
+      var node = document.getElementById("result");
+      textNode = document.createTextNode("You Answered " + correct + " questions correct and " + wrong + " questions wrong");
+      node.appendChild(textNode);
+    }
+
+    function quiz(){
+      if (cont == true){
+          console.log("next question at iteration..." + iter);
+          iter = iter + 1;
+          response = document.getElementById("input").value;
+          if (response == total){
+            correct = correct + 1;
+          }
+          else {
+            wrong = wrong + 1;
+          }
+          document.getElementById("input").value = "";
+          if (iter < 3){
+            displayQuestion();
+          }
+          else{
+            displayResult();
+            cont = false;
+          }
+        }
+    }
+
+  </script>
+
+  </body>
+
+</html>
